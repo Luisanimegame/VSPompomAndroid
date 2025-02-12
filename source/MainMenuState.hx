@@ -117,6 +117,10 @@ class MainMenuState extends MusicBeatState
 			controls.setKeyboardScheme(KeyboardScheme.Duo(true), true);
 
 		changeItem();
+		
+		#if mobile
+        addVirtualPad(UP_DOWN, A);
+        #end
 
 		super.create();
 	}
@@ -144,7 +148,7 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
-			if (controls.BACK)
+			if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 			{
 				FlxG.switchState(new TitleState());
 			}

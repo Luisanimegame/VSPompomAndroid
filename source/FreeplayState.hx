@@ -137,6 +137,10 @@ class FreeplayState extends MusicBeatState
 
 			trace(md);
 		 */
+		
+		#if mobile
+        addVirtualPad(LEFT_FULL, A);
+        #end
 
 		super.create();
 	}
@@ -195,7 +199,7 @@ class FreeplayState extends MusicBeatState
 		if (controls.RIGHT_P)
 			changeDiff(1);
 
-		if (controls.BACK)
+		if (controls.BACK #if android || FlxG.android.justReleased.BACK #end)
 		{
 			FlxG.switchState(new MainMenuState());
 		}

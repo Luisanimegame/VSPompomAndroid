@@ -44,7 +44,15 @@ class EndingState extends FlxState
 	{
 		super.update(elapsed);
 		
-		if (FlxG.keys.pressed.ENTER){
+		#if mobile
+        var jusTouched:Bool = false;
+
+        for (touch in FlxG.touches.list)
+          if (touch.justPressed)
+            jusTouched = true;
+        #end
+		
+		if (FlxG.keys.pressed.ENTER #if mobile || jusTouched #end){
 			endIt();
 		}
 		
