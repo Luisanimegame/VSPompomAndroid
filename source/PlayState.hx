@@ -1352,10 +1352,6 @@ class PlayState extends MusicBeatState
 		kadeEngineWatermark.cameras = [camHUD];
 		if (loadRep)
 			replayTxt.cameras = [camHUD];
-			
-		#if mobile
-		addMobileControls();
-		#end
 
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
@@ -1598,10 +1594,6 @@ class PlayState extends MusicBeatState
 	function startCountdown():Void
 	{
 		inCutscene = false;
-		
-		#if mobile
-		mobileControls.visible = true;
-		#end
 
 		generateStaticArrows(0);
 		generateStaticArrows(1);
@@ -2589,7 +2581,7 @@ class PlayState extends MusicBeatState
 			scoreTxt.text = "Suggested Offset: " + offsetTest;
 
 		}
-		if (FlxG.keys.justPressed.ENTER #if android || FlxG.android.justReleased.BACK #end && startedCountdown && canPause)
+		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
 			persistentUpdate = false;
 			persistentDraw = true;
@@ -3074,6 +3066,9 @@ class PlayState extends MusicBeatState
 
 	function endSong():Void
 	{
+		if (!loadRep)
+			rep.SaveReplay();
+
 		#if cpp
 		if (executeModchart)
 		{
@@ -3085,9 +3080,6 @@ class PlayState extends MusicBeatState
 		canPause = false;
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
-		#if mobile
-		mobileControls.visible = false;
-		#end
 		if (SONG.validScore)
 		{
 			#if !switch
